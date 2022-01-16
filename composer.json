@@ -1,7 +1,13 @@
 {
     "name": "wavey/sweetalert",
     "description": "SweetAlert2 implementation for Laravel",
-    "keywords": ["sweetalert", "laravel", "sweet", "alert", "alerts"],
+    "keywords": [
+        "sweetalert",
+        "laravel",
+        "sweet",
+        "alert",
+        "alerts"
+    ],
     "license": "MIT",
     "authors": [
         {
