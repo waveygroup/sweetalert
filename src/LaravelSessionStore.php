@@ -22,11 +22,11 @@ class LaravelSessionStore implements SessionStore
      */
     public function flash(string $key, $value = true)
     {
-        $this->session->flash( $key, $value );
+        $this->session->flash($key, $value);
     }
 
     public function remove($keys)
     {
-        $this->session->forget( $keys );
+        $this->session->forget($keys);
     }
 }
