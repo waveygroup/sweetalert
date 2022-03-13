@@ -8,15 +8,15 @@ class SweetalertServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadViewsFrom( __DIR__ . '/../views', 'sweetalert' );
+        $this->loadViewsFrom(__DIR__.'/../views', 'sweetalert');
 
-        $this->publishes( [
-            __DIR__ . '/../config/sweetalert.php' => config_path( 'sweetalert.php' ),
-        ], 'sweetalert-config' );
+        $this->publishes([
+            __DIR__.'/../config/sweetalert.php' => config_path('sweetalert.php'),
+        ], 'sweetalert-config');
 
-        $this->publishes( [
-            __DIR__ . '/../views' => base_path( 'resources/views/vendor/wavey/sweetalert' ),
-        ], 'sweetalert-views' );
+        $this->publishes([
+            __DIR__.'/../views' => base_path('resources/views/vendor/wavey/sweetalert'),
+        ], 'sweetalert-views');
 
         $this->configureCommands();
     }
@@ -28,19 +28,19 @@ class SweetalertServiceProvider extends ServiceProvider
      */
     protected function configureCommands()
     {
-        if ( ! $this->app->runningInConsole() ) {
+        if (!$this->app->runningInConsole()) {
             return;
         }
 
-        $this->commands( [
+        $this->commands([
             Console\InstallCommand::class,
-        ] );
+        ]);
     }
 
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/sweetalert.php',
+            __DIR__.'/../config/sweetalert.php',
             'sweetalert'
         );
 
@@ -49,9 +49,9 @@ class SweetalertServiceProvider extends ServiceProvider
             'Wavey\Sweetalert\LaravelSessionStore'
         );
 
-        $this->app->bind( 'wavey.sweetalert', function () {
-            return $this->app->make( 'Wavey\Sweetalert\Notifier' );
-        } );
+        $this->app->bind('wavey.sweetalert', function () {
+            return $this->app->make('Wavey\Sweetalert\Notifier');
+        });
     }
 
     public function provides(): array
