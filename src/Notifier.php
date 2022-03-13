@@ -7,15 +7,15 @@ class Notifier
     /** @var SessionStore */
     protected SessionStore $session;
 
-    /** @var array $config */
+    /** @var array */
     protected array $config = [];
 
-    /** @var array $buttonConfig */
+    /** @var array */
     protected array $buttonConfig = [
-        'text' => '',
-        'visible' => false,
-        'value' => null,
-        'className' => '',
+        'text'       => '',
+        'visible'    => false,
+        'value'      => null,
+        'className'  => '',
         'closeModal' => true,
     ];
 
@@ -38,14 +38,14 @@ class Notifier
      */
     protected function setDefaultConfig()
     {
-        $this->setConfig( [
-            'timer' => config( 'sweetalert.autoclose' ),
-            'text' => '',
+        $this->setConfig([
+            'timer'   => config('sweetalert.autoclose'),
+            'text'    => '',
             'buttons' => [
-                'cancel' => false,
+                'cancel'  => false,
                 'confirm' => false,
             ],
-        ] );
+        ]);
     }
 
     /**
@@ -58,7 +58,7 @@ class Notifier
      */
     public function basic($text, $title): Notifier
     {
-        $this->message( $text, $title );
+        $this->message($text, $title);
 
         return $this;
     }
@@ -74,47 +74,48 @@ class Notifier
      */
     public function message(string $text = '', string $title = null, $icon = null): Notifier
     {
-        $this->config[ 'text' ] = $text;
+        $this->config['text'] = $text;
 
-        if ( ! is_null( $title ) ) {
-            $this->config[ 'title' ] = $title;
+        if (!is_null($title)) {
+            $this->config['title'] = $title;
         }
 
-        if ( ! is_null( $icon ) ) {
-            $this->config[ 'icon' ] = $icon;
+        if (!is_null($icon)) {
+            $this->config['icon'] = $icon;
         }
         $this->flashConfig();
+
         return $this;
     }
 
     /**
-     * Flash the config
+     * Flash the config.
      *
      * @return void
      */
     protected function flashConfig()
     {
-        $this->session->remove( 'sweetalert' );
+        $this->session->remove('sweetalert');
 
-        foreach ( $this->config as $key => $value ) {
-            $this->session->flash( "sweetalert.{$key}", $value );
+        foreach ($this->config as $key => $value) {
+            $this->session->flash("sweetalert.{$key}", $value);
         }
 
-        $this->session->flash( 'sweetalert.alert', $this->buildJsonConfig() );
+        $this->session->flash('sweetalert.alert', $this->buildJsonConfig());
     }
 
     /**
-     * Encode the config
+     * Encode the config.
      *
      * @return bool|string
      */
     protected function buildJsonConfig(): bool|string
     {
-        return json_encode( $this->config );
+        return json_encode($this->config);
     }
 
     /**
-     * Get the config
+     * Get the config.
      *
      * @param $key
      *
@@ -122,17 +123,17 @@ class Notifier
      */
     public function getConfig($key = null)
     {
-        if ( is_null( $key ) ) {
+        if (is_null($key)) {
             return $this->config;
         }
 
-        if ( array_key_exists( $key, $this->config ) ) {
-            return $this->config[ $key ];
+        if (array_key_exists($key, $this->config)) {
+            return $this->config[$key];
         }
     }
 
     /**
-     * Set the config
+     * Set the config.
      *
      * @param array $config
      *
@@ -140,7 +141,7 @@ class Notifier
      */
     public function setConfig(array $config = []): static
     {
-        $this->config = array_merge( $this->config, $config );
+        $this->config = array_merge($this->config, $config);
 
         return $this;
     }
@@ -173,7 +174,7 @@ class Notifier
      */
     public function info($text, string $title = ''): Notifier
     {
-        $this->message( $text, $title, 'info' );
+        $this->message($text, $title, 'info');
 
         return $this;
     }
@@ -188,7 +189,7 @@ class Notifier
      */
     public function success($text, string $title = ''): Notifier
     {
-        $this->message( $text, $title, 'success' );
+        $this->message($text, $title, 'success');
 
         return $this;
     }
@@ -203,7 +204,7 @@ class Notifier
      */
     public function error($text, string $title = ''): Notifier
     {
-        $this->message( $text, $title, 'error' );
+        $this->message($text, $title, 'error');
 
         return $this;
     }
@@ -218,7 +219,7 @@ class Notifier
      */
     public function warning($text, string $title = ''): Notifier
     {
-        $this->message( $text, $title, 'warning' );
+        $this->message($text, $title, 'warning');
 
         return $this;
     }
@@ -232,8 +233,8 @@ class Notifier
      */
     public function autoclose($milliseconds = null): Notifier
     {
-        if ( ! is_null( $milliseconds ) ) {
-            $this->config[ 'timer' ] = $milliseconds;
+        if (!is_null($milliseconds)) {
+            $this->config['timer'] = $milliseconds;
         }
 
         return $this;
@@ -249,7 +250,7 @@ class Notifier
      */
     public function confirmButton(string $buttonText = 'OK', array $overrides = []): Notifier
     {
-        $this->addButton( 'confirm', $buttonText, $overrides );
+        $this->addButton('confirm', $buttonText, $overrides);
 
         return $this;
     }
@@ -265,16 +266,16 @@ class Notifier
      */
     public function addButton($key, $buttonText, array $overrides = []): Notifier
     {
-        $this->config[ 'buttons' ][ $key ] = array_merge(
+        $this->config['buttons'][$key] = array_merge(
             $this->buttonConfig,
             [
-                'text' => $buttonText,
+                'text'    => $buttonText,
                 'visible' => true,
             ],
             $overrides
         );
 
-        $this->closeOnClickOutside( false );
+        $this->closeOnClickOutside(false);
         $this->removeTimer();
 
         return $this;
@@ -289,7 +290,7 @@ class Notifier
      */
     public function closeOnClickOutside(bool $value = true): static
     {
-        $this->config[ 'closeOnClickOutside' ] = $value;
+        $this->config['closeOnClickOutside'] = $value;
 
         return $this;
     }
@@ -301,8 +302,8 @@ class Notifier
      */
     protected function removeTimer()
     {
-        if ( array_key_exists( 'timer', $this->config ) ) {
-            unset( $this->config[ 'timer' ] );
+        if (array_key_exists('timer', $this->config)) {
+            unset($this->config['timer']);
         }
     }
 
@@ -313,9 +314,9 @@ class Notifier
      */
     public function html(): static
     {
-        $this->config[ 'content' ] = $this->config[ 'text' ];
+        $this->config['content'] = $this->config['text'];
 
-        unset( $this->config[ 'text' ] );
+        unset($this->config['text']);
 
         return $this;
     }
@@ -329,8 +330,8 @@ class Notifier
      */
     public function persistent(string $buttonText = 'OK'): static
     {
-        $this->addButton( 'confirm', $buttonText );
-        $this->closeOnClickOutside( false );
+        $this->addButton('confirm', $buttonText);
+        $this->closeOnClickOutside(false);
         $this->removeTimer();
 
         return $this;
@@ -346,7 +347,7 @@ class Notifier
      */
     public function cancelButton(string $buttonText = 'Cancel', array $overrides = []): Notifier
     {
-        $this->addButton( 'cancel', $buttonText, $overrides );
+        $this->addButton('cancel', $buttonText, $overrides);
 
         return $this;
     }
