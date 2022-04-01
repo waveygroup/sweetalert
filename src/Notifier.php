@@ -148,10 +148,8 @@ class Notifier
 
     /**
      * Get the config in JSON format.
-     *
-     * @return bool|string
      */
-    public function getJsonConfig(): bool|string
+    public function getJsonConfig()
     {
         return $this->buildJsonConfig();
     }
