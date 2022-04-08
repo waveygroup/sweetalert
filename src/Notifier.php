@@ -106,10 +106,8 @@ class Notifier
 
     /**
      * Encode the config.
-     *
-     * @return bool|string
      */
-    protected function buildJsonConfig(): bool|string
+    protected function buildJsonConfig()
     {
         return json_encode($this->config);
     }
