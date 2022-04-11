@@ -137,7 +137,7 @@ class Notifier
      *
      * @return $this
      */
-    public function setConfig(array $config = []): static
+    public function setConfig(array $config = [])
     {
         $this->config = array_merge($this->config, $config);
 
@@ -284,7 +284,7 @@ class Notifier
      *
      * @return $this
      */
-    public function closeOnClickOutside(bool $value = true): static
+    public function closeOnClickOutside(bool $value = true)
     {
         $this->config['closeOnClickOutside'] = $value;
 
@@ -324,7 +324,7 @@ class Notifier
      *
      * @return $this
      */
-    public function persistent(string $buttonText = 'OK'): static
+    public function persistent(string $buttonText = 'OK')
     {
         $this->addButton('confirm', $buttonText);
         $this->closeOnClickOutside(false);
