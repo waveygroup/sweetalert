@@ -305,10 +305,8 @@ class Notifier
 
     /**
      * Create the HTML alert.
-     *
-     * @return $this
      */
-    public function html(): static
+    public function html()
     {
         $this->config['content'] = $this->config['text'];
 
