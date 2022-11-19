@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Add a global helper that will allow the use of sweetalert() throughout the application.
+ *
+ * @param string|null $message
+ * @param string|null $title
+ */
 if (!function_exists('sweetalert')) {
-    function sweetalert($message = null, $title = '')
+    function sweetalert(string $message = null, string $title = '')
     {
         $notifier = app('wavey.sweetalert');
 
