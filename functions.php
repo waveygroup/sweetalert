@@ -2,7 +2,7 @@
 
 /**
  * Add a global helper that will allow the use of sweetalert() throughout the application.
- * 
+ *
  * @param string|null $message
  * @param string|null $title
  */
